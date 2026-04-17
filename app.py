@@ -7,9 +7,9 @@ app.secret_key = 'imc_secret_key_2026'
 
 @app.route('/')
 def index():
-    sql = "SHOW TABLES;"
-    resultado = execute_query(sql, fetch=True)
-    print(resultado)
+    sql= "SHOW TABLES;"
+    resultados= execute_query(sql, fetch=True)
+    print(resultados)
 
     return render_template('index.html')
 

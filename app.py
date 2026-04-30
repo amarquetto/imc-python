@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from db import execute_query
+from db import execute_query, execute_one
 
 app = Flask(__name__)
 app.secret_key = 'imc_secret_key_2026'
@@ -96,10 +96,18 @@ def calcular():
             app.logger.error(f'Erro no INSERT: {E}')
             return redirect (url_for('calcular'))
         
+
         # flash(f'Olá {nome}, seu IMC é {imc} e sua classificação é: {classificacao}', 'success')    
 
     return render_template('formulario.html')
 
+@app.route('/calcular/editar/<int:id>', methods=['GET', 'POST'])
+def editar_imc(id):
+    
+        dados = execute_one('SELECT * FROM calculos WHERE id_calculo = %s', (id,))
+       # print(dados)
+
+        return render_template ('formulario.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
